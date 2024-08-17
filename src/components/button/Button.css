@@ -1,0 +1,31 @@
+.button_primary {
+    background-color: blue;;
+    padding: 10px 15px 10px 15px;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+.button_secondary {
+    background-color: green;
+    padding: 10px 15px 10px 15px;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.avatar_md {
+    height: 100px;
+    width: 100px;
+  }
+  
+  .avatar_lg {
+    height: 170px;
+    width: 170px;
+  }
+  
+  .avatar_sm {
+    height: 70px;
+    width: 70px;
+  }
