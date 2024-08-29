@@ -7,3 +7,18 @@
     display: flex;
     justify-content: center;
 }
+
+.avatar_md {
+    height: 100px;
+    width: 100px;
+  }
+  
+  .avatar_lg {
+    height: 170px;
+    width: 170px;
+  }
+  
+  .avatar_sm {
+    height: 70px;
+    width: 70px;
+  }
