@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import Button from "../../button/Button"
 import Input from "../../input/Input"
 import "./latihanForm.css";
@@ -17,11 +17,54 @@ export default function LatihanForm() {
     }
 
     const [form, setForm] = useState<Biodata>(defaultState);
+    const [error, setError] = useState<string | null>(null);
+
+    const [biodatas, setBiodatas] = useState<Biodata[]>([]);
+
+    const getData = async () => {
+        try {
+            const response = await fetch("http://localhost:3001/biodata", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            setBiodatas(data);
+        } catch (error) {
+            // Menggunakan type assertion
+        if (error instanceof Error) {
+            setError(error.message);
+            console.error("Error fetching data:", error.message);
+            } else {
+                setError("An unknown error occurred");
+                console.error("Error fetching data:", error);
+            }
+        }
+    };
+
+    useEffect(() => {
+        getData();
+      }, []);
 
     const handleSubmit = (e:FormEvent) => {
         e.preventDefault();
-        console.log("form", form);
+        fetch("http://localhost:3001/biodata", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(form)
+        })
+            .then(res => getData())
+            .catch(err => alert("Data gagal disimpan"))
     }
+    
     return (
         <>
         <form className="latihan_form" onSubmit={handleSubmit}>
@@ -57,6 +100,19 @@ export default function LatihanForm() {
                 <Button label="Submit" />
             </div>
         </form>
+
+        <div>
+            <h2>Data Biodata</h2>
+            <ul>
+                {biodatas.map((biodata, index) => (
+                    <li key={index}>
+                        <p>Nama: {biodata.nama}</p>
+                        <p>Email: {biodata.email}</p>
+                        <p>No. HP: {biodata.noHp}</p>
+                    </li>
+                ))}
+            </ul>
+        </div>
         </>
     )
 }

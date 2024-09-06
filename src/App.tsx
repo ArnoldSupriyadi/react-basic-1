@@ -1,5 +1,5 @@
 import LatihanForm from "./components/features/latihan-form/latihanForm";
-import LatihanForm2 from "./components/features/latihan-form/latihanForm";
+import LatihanForm2 from "./components/features/latihan-form/latihanForm2";
 
 
 function App() {
